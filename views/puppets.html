@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Chicken</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../app.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -40,7 +42,7 @@
         </div>
     </nav>
 
-<div class="container">
+<div class="container" id="app">
 
 <table class="table table-hover">
     <thead>
@@ -52,7 +54,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr v-for="">
             <td>Default</td>
             <td>Column content</td>
             <td>Column content</td>
@@ -93,8 +95,6 @@
 
     </form>
 </div>
-
-
 
 </body>
 </html>
