@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Chicken</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -40,20 +42,20 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="app" style="padding-top: 20px;">
         <div class="row">
             <div class="col">
                 <div class="card border-light mb-3">
                   <div class="card-header">Chorégraphy</div>
                   <div class="card-body">
-                    <form>
+
                         <div class="form-group">
                             <label for="name">Nom</label>
                             <input type="text" class="form-control" name="name" placheholder="Nom">
                             <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv1"><i class="fas fa-times" style="float: right;"></i>
                             <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv2"><i class="fas fa-times" style="float: right;"></i>
                         </div>
-                    </form>
+
                   </div>
                 </div>
             </div>
@@ -62,9 +64,7 @@
                 <div class="card border-light mb-3">
                     <div class="card-header">Mouvements</div>
                     <div class="card-body">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv1">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv2">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv3">
+                        <p v-for="movement in movements"><a href="#">{{movement.name}}</a></p>
                     </div>
                 </div>
             </div>
@@ -79,5 +79,11 @@
         </div>
     </div>
 
+<script type="text/javascript" src="../movements.js"></script>
+<script type="text/javascript" src="../choreographies.js"></script>
+
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

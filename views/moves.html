@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Chicken</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -40,43 +42,47 @@
         </div>
     </nav>
 
-<div class="container">
+<div class="container" id="app" style="margin-top: 20px;">
+
+    <a href="addMovement.html" style="float: right; margin-bottom: 20px;"><button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button></a>
 
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Nom</th>
-                <th scope="col">Image</th>
                 <th scope="col">Temps</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Default</td>
-                <td>Column content.gif</td>
-                <td>30s</td>
+            <tr v-for="movement in movements">
+                <td><a href="#" v-on:click="formValues(movement)">{{movement.name}}</a></td>
+                <td><a href="#" v-on:click="formValues(movement)"></a></td>
+                <td>
+                    <a href="#" v-on:click="formValues(movement)"><i class="fas fa-pencil">modify</i></a>
+                    <a href="#" v-on:click="deleteMovement(movement)"><i class="fas fa-trash"></i></a>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <form>
-        <div class="form-group">
-            <label for="name">Nom</label>
-            <input type="text" class="form-control" id="name" placeholder="Nom">
-        </div>
+    <div class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="movement_form_name">
+    </div>
 
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" class="form-control" id="image" placeholder="image">
-        </div>
+    <div class="form-group">
+        <label for="bluetoothCode">Temps</label>
+        <input type="text" class="form-control" id="temps" aria-describedby="TempsHelp" placeholder="Temps de l'image" v-model="movement_form_time">
+        <small id="codeHelp" class="form-text text-muted">Temps du mouvement et de l'image gif</small>
+    </div>
 
-        <div class="form-group">
-            <label for="time">Temps</label>
-            <input type="number" class="form-control" id="time" aria-describedby="codeHelp" placeholder="Temps de l'image">
-        </div>
-    </form>
+    <button type="submit" class="btn btn-primary" name="update" v-on:click="updateMovement()">update</button>
 
-    <div class="card border-light mb-3" >
+</div>
+<script src="../movements.js"></script>
+
+    <!-- <div class="card border-light mb-3" >
         <div class="card-header">Mouvement</div>
         <div class="card-body" style="text-align: center;">
             <h4 class="card-title">Nom</h4>
@@ -85,7 +91,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 </body>
 </html>

@@ -11,7 +11,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Chicken</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,38 +41,40 @@
         </div>
     </nav>
 
-    <div class="container">
+<div class="container" id="app" style="margin-top: 20px;">
 
-        <div style="margin-bottom: 20px; margin-top: 20px;">
-            <h1 style="text-align: center;">Chorégraphies
-                <a href="createChoreography.html" style="float: right;">
-                    <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
-                </a>
-            </h1>
-            <!-- &nbsp; -->
+    <!-- <form> -->
+
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="puppet_form_name">
         </div>
 
-        <div class="card border-light mb-3">
-            <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
-            </div>
-            <div class="card-body">
-                <p>list of movements</p>
-            </div>
+        <div class="form-group">
+            <label for="bluetoothCode">Bluetooth Code</label>
+            <input type="text" class="form-control" id="bluetoothCode" aria-describedby="codeHelp" placeholder="Code bluetooth de l'appareil" v-model="puppet_form_btMac">
+            <small id="codeHelp" class="form-text text-muted">Code that gives access to the bluetooth of this puppets.</small>
         </div>
 
-        <div class="card border-light mb-3">
-            <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
-            </div>
-            <div class="card-body">
-                <p>list of movements</p>
-            </div>
+        <div class="form-group">
+            <label for="mdp">Bluetooth Password</label>
+            <input type="text" class="form-control" id="mdp" aria-describedby="mdpHelp" placeholder="Mot de passe Bluetooth" v-model="puppet_form_btPw">
+            <small id="mdpHelp" class="form-text text-muted">Bluetooth access password.</small>
         </div>
 
-    </div>
+        <div class="form-group">
+            <label for="chore">Chorégraphie</label>
+            <a href="#" style="float: right; margin-bottom: 20px;"><button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button></a>
+            <select class="form-control" name="chore" v-model="choregraphy">
+                <option value="TESPUPPET">TESTPUPPET</option>
+                <option value="puppet2">puppet2</option>
+            </select>
+        </div>
 
+        <button type="submit" class="btn btn-primary" name="create" v-on:click="createPuppet()">create</button>
+
+    <!-- </form> -->
+</div>
+<script src="../puppets.js"></script>
 </body>
 </html>

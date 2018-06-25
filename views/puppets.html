@@ -42,59 +42,64 @@
         </div>
     </nav>
 
-<div class="container" id="app">
+<div class="container" id="app" style="margin-top: 20px;">
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Bluetooth Code</th>
-            <th scope="col">Bluetooth Password</th>
-            <th scope="col">Chorégraphie</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr v-for="puppet in puppets">
-            <td><a href="#" v-on:click="formValues(puppet)">{{puppet.name}}</a></td>
-            <td><a href="#" v-on:click="formValues(puppet)">{{puppet.btMac}}</a></td>
-            <td><a href="#" v-on:click="formValues(puppet)">{{puppet.btPw}}</a></td>
-            <td><a href="#" v-on:click="formValues(puppet)"></a></td>
-        </tr>
-    </tbody>
-</table>
+    <a href="addPuppet.html" style="float: right; margin-bottom: 20px;"><button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button></a>
 
-    <form>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Bluetooth Code</th>
+                <th scope="col">Bluetooth Password</th>
+                <th scope="col">Chorégraphie</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="puppet in puppets">
+                <td><a href="#" v-on:click="formValues(puppet)">{{puppet.name}}</a></td>
+                <td><a href="#" v-on:click="formValues(puppet)">{{puppet.btMac}}</a></td>
+                <td><a href="#" v-on:click="formValues(puppet)">{{puppet.btPw}}</a></td>
+                <td><a href="#" v-on:click="formValues(puppet)"></a></td>
+                <td>
+                    <a href="#" v-on:click="formValues(puppet)"><i class="fas fa-pencil">modify</i></a>
+                    <a href="#" v-on:click="deletePuppet(puppet)"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-        <div class="form-group">
-            <label for="name">Nom</label>
-            <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" :value="puppet_form_name">
-        </div>
 
-        <div class="form-group">
-            <label for="bluetoothCode">Bluetooth Code</label>
-            <input type="text" class="form-control" id="bluetoothCode" aria-describedby="codeHelp" placeholder="Code bluetooth de l'appareil" :value="puppet_form_btMac">
-            <small id="codeHelp" class="form-text text-muted">Code that gives access to the bluetooth of this puppets.</small>
-        </div>
+    <div class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="puppet_form_name">
+    </div>
 
-        <div class="form-group">
-            <label for="mdp">Bluetooth Password</label>
-            <input type="text" class="form-control" id="mdp" aria-describedby="mdpHelp" placeholder="Mot de passe Bluetooth" :value="puppet_form_btPw">
-            <small id="mdpHelp" class="form-text text-muted">Bluetooth access password.</small>
-        </div>
+    <div class="form-group">
+        <label for="bluetoothCode">Bluetooth Code</label>
+        <input type="text" class="form-control" id="bluetoothCode" aria-describedby="codeHelp" placeholder="Code bluetooth de l'appareil" v-model="puppet_form_btMac">
+        <small id="codeHelp" class="form-text text-muted">Code that gives access to the bluetooth of this puppets.</small>
+    </div>
 
-        <div class="form-group">
-            <label for="chore">Chorégraphie</label>
-            <a href="#" style="float: right; margin-bottom: 20px;"><button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button></a>
-            <select class="form-control" name="chore">
-                <option value="">TESTPUPPET</option>
-                <option value="">puppet2</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label for="mdp">Bluetooth Password</label>
+        <input type="text" class="form-control" id="mdp" aria-describedby="mdpHelp" placeholder="Mot de passe Bluetooth" v-model="puppet_form_btPw">
+        <small id="mdpHelp" class="form-text text-muted">Bluetooth access password.</small>
+    </div>
 
-        <button type="submit" class="btn btn-primary" name="update">update</button>
+    <div class="form-group">
+        <label for="chore">Chorégraphie</label>
+        <a href="#" style="float: right; margin-bottom: 20px;"><button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button></a>
+        <select class="form-control" name="chore">
+            <option value="">TESTPUPPET</option>
+            <option value="">puppet2</option>
+        </select>
+    </div>
 
-    </form>
+    <button type="submit" class="btn btn-primary" name="update" v-on:click="updatePuppet()">update</button>
+
 </div>
-<script src="../app.js"></script>
+<script src="../puppets.js"></script>
 </body>
 </html>

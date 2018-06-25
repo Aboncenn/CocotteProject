@@ -42,38 +42,23 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="app" style="margin-top: 20px;">
 
-        <div style="margin-bottom: 20px; margin-top: 20px;">
-            <h1 style="text-align: center;">Chorégraphies
-                <a href="createChoreography.html" style="float: right;">
-                    <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
-                </a>
-            </h1>
-            <!-- &nbsp; -->
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="movement_form_name">
         </div>
 
-        <div class="card border-light mb-3">
-            <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
-            </div>
-            <div class="card-body">
-                <p>list of movements</p>
-            </div>
+        <div class="form-group">
+            <label for="bluetoothCode">Temps</label>
+            <input type="text" class="form-control" id="temps" aria-describedby="TempsHelp" placeholder="Temps de l'image" v-model="movement_form_time">
+            <small id="codeHelp" class="form-text text-muted">Temps du mouvement et de l'image gif</small>
         </div>
 
-        <div class="card border-light mb-3">
-            <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
-            </div>
-            <div class="card-body">
-                <p>list of movements</p>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary" name="create" v-on:click="createMovement()">create</button>
 
     </div>
 
+    <script src="../movements.js"></script>
 </body>
 </html>
