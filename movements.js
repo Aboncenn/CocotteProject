@@ -1,4 +1,4 @@
-const vm = new Vue({
+const mo = new Vue({
     el: '#app',
     data: {
         movements: [],

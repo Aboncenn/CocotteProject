@@ -1,4 +1,4 @@
-const vm = new Vue({
+const pu = new Vue({
     el: '#app',
     data: {
         puppets: [],
