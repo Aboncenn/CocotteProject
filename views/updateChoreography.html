@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Chicken</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -40,44 +42,80 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card border-light mb-3">
-                  <div class="card-header">Chorégraphy</div>
-                  <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Nom</label>
-                            <input type="text" class="form-control" name="name" placheholder="Nom">
-                            <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv1"><i class="fas fa-times" style="float: right;"></i>
-                            <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv2"><i class="fas fa-times" style="float: right;"></i>
-                        </div>
-                    </form>
-                  </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-light mb-3">
-                    <div class="card-header">Mouvements</div>
-                    <div class="card-body">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv1">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv2">
-                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="mouv3">
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="container" id="app" style="padding-top: 20px;">
+{{to_update}}
         <div class="card border-light mb-3">
-            <div class="card-header">Rendu</div>
+            <div class="card-header">Chorégraphy</div>
             <div class="card-body">
-                <img src="../assets/images/giphy.gif" width="200px;" alt="">
-                <img src="../assets/images/giphy1.gif" width="200px;" alt="">
+
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" name="name" placheholder="Nom" v-model="choreography_form_name">
+                </div>
+
+                <div class="movements_list" id="movements_list" v-for="index in count_movements">
+                    <div class="" id="movement">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <label for="name">Mouvement - {{index}}</label>
+                                    <select class="form-control" name="mouvements_list" v-on:change="movementValuesSelect" id="select">
+                                        <option value="" selected="selected">-- mouvement --</option>
+                                        <option v-for="movement in movements" v-bind:value="JSON.stringify(movement)">{{movement.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-1" style="padding-top: 35px; padding-left: 35px;">
+                                    <a href="#" v-on:click="showParams()"><i class="fas fa-arrow-circle-down setUp" style="font-size: 30px;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movementParams" id="movementParams" style="display: none;">
+                            <div class="form-group">
+                                <label for="name">Nom</label>
+                                <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="movements_form[1]">
+                            </div>
+                            <div class="form-group">
+                                <label for="steps"></label>
+                                <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot" v-model="movement_form_steps">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="time"></label>
+                                <input type="number" class="form-control" name="time" placeholder="Vitesse du robot" v-model="movement_form_time">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="direction"></label>
+                                <input type="number" class="form-control" name="direction" placeholder="Direction du robot" v-model="movement_form_direction">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="height"></label>
+                                <input type="number" class="form-control" name="height" placeholder="hauteur du mouvement" v-model="movement_form_height">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#" v-on:click="createChoreography();" style="float: left; margin-top: 20px;">
+                    <button type="button" class="btn btn-info btn-lg" name="button">Créer Chorégraphie</button>
+                </a>
+
+                <a href="#" v-on:click="addMovement();" style="float: right; margin-top: 20px;">
+                    <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
+                </a>
+
             </div>
         </div>
+
     </div>
+
+
+<script type="text/javascript" src="../choreographies.js"></script>
 
 </body>
 </html>

@@ -50,9 +50,23 @@
         </div>
 
         <div class="form-group">
-            <label for="bluetoothCode">Temps</label>
-            <input type="text" class="form-control" id="temps" aria-describedby="TempsHelp" placeholder="Temps de l'image" v-model="movement_form_time">
-            <small id="codeHelp" class="form-text text-muted">Temps du mouvement et de l'image gif</small>
+            <label for="steps"></label>
+            <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot" v-model="movement_form_steps">
+        </div>
+
+        <div class="form-group">
+            <label for="time"></label>
+            <input type="number" class="form-control" name="time" placeholder="Vitesse du robot" v-model="movement_form_time">
+        </div>
+
+        <div class="form-group">
+            <label for="direction"></label>
+            <input type="number" class="form-control" name="direction" placeholder="Direction du robot" v-model="movement_form_direction">
+        </div>
+
+        <div class="form-group">
+            <label for="height"></label>
+            <input type="number" class="form-control" name="height" placeholder="hauteur du mouvement" v-model="movement_form_height">
         </div>
 
         <button type="submit" class="btn btn-primary" name="create" v-on:click="createMovement()">create</button>

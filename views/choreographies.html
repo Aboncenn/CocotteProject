@@ -42,7 +42,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="app">
 
         <div style="margin-bottom: 20px; margin-top: 20px;">
             <h1 style="text-align: center;">Chorégraphies
@@ -53,27 +53,20 @@
             <!-- &nbsp; -->
         </div>
 
-        <div class="card border-light mb-3">
-            <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
-            </div>
-            <div class="card-body">
-                <p>list of movements</p>
-            </div>
-        </div>
 
-        <div class="card border-light mb-3">
+        <div class="card border-light mb-3" v-for="choreography in choreographies">
             <div class="card-header">
-                <a href="updateChoreography.html">Nom</a>
-                <a href="#"><i class="fas fa-times" style="float: right;"></i></a>
+                <a href="#" v-on:click="goToUpdate(choreography)">{{choreography.name}}</a>
+                <a href="#" v-on:click="deleteChoreography(choreography)"><i class="fas fa-times" style="float: right;"></i></a>
             </div>
             <div class="card-body">
-                <p>list of movements</p>
+                <span v-for="move in choreography.movement" style="margin-right: 20px;">{{move}}</span>
             </div>
         </div>
 
     </div>
+
+<script type="text/javascript" src="../choreographies.js"></script>
 
 </body>
 </html>

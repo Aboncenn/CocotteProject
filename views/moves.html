@@ -50,16 +50,22 @@
         <thead>
             <tr>
                 <th scope="col">Nom</th>
-                <th scope="col">Temps</th>
+                <th scope="col">Nombre de pas</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Direction</th>
+                <th scope="col">Hauteur</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="movement in movements">
                 <td><a href="#" v-on:click="formValues(movement)">{{movement.name}}</a></td>
-                <td><a href="#" v-on:click="formValues(movement)"></a></td>
+                <td><a href="#" v-on:click="formValues(movement)">{{movement.steps}}</a></td>
+                <td><a href="#" v-on:click="formValues(movement)">{{movement.time}}</a></td>
+                <td><a href="#" v-on:click="formValues(movement)">{{movement.direction}}</a></td>
+                <td><a href="#" v-on:click="formValues(movement)">{{movement.height}}</a></td>
                 <td>
-                    <a href="#" v-on:click="formValues(movement)"><i class="fas fa-pencil">modify</i></a>
+                    <a href="#" v-on:click="formValues(movement)" style="margin-right: 10px;"><i class="fas fa-pencil-alt"></i></a>
                     <a href="#" v-on:click="deleteMovement(movement)"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
@@ -72,9 +78,23 @@
     </div>
 
     <div class="form-group">
-        <label for="bluetoothCode">Temps</label>
-        <input type="text" class="form-control" id="temps" aria-describedby="TempsHelp" placeholder="Temps de l'image" v-model="movement_form_time">
-        <small id="codeHelp" class="form-text text-muted">Temps du mouvement et de l'image gif</small>
+        <label for="steps"></label>
+        <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot" v-model="movement_form_steps">
+    </div>
+
+    <div class="form-group">
+        <label for="time"></label>
+        <input type="number" class="form-control" name="time" placeholder="Vitesse du robot" v-model="movement_form_time">
+    </div>
+
+    <div class="form-group">
+        <label for="direction"></label>
+        <input type="number" class="form-control" name="direction" placeholder="Direction du robot" v-model="movement_form_direction">
+    </div>
+
+    <div class="form-group">
+        <label for="height"></label>
+        <input type="number" class="form-control" name="height" placeholder="hauteur du mouvement" v-model="movement_form_height">
     </div>
 
     <button type="submit" class="btn btn-primary" name="update" v-on:click="updateMovement()">update</button>
