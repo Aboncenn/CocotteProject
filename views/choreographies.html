@@ -60,7 +60,7 @@
                 <a href="#" v-on:click="deleteChoreography(choreography)"><i class="fas fa-times" style="float: right;"></i></a>
             </div>
             <div class="card-body">
-                <span v-for="move in choreography.movement" style="margin-right: 20px;">{{move}}</span>
+                <span v-for="move in choreography.movement" style="margin-right: 20px;">{{move.name}}</span>
             </div>
         </div>
 

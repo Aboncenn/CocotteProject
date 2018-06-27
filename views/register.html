@@ -15,19 +15,20 @@
     <div class="container" style="padding: 140px 400px 140px 400px;" id="app">
 
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Connection</h1>
+        <h1 class="h3 mb-3 font-weight-normal">S'enregistrer</h1>
         <div class="form-group">
           <label for="inputEmail" class="sr-only">Adresse email</label>
           <input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" v-model="email" required autofocus>
         </div>
 
         <div class="form-group">
-          <label for="inputPassword" class="sr-only">Password</label>
+          <label for="inputPassword" class="sr-only">Mot de passe</label>
           <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" v-model="password" required>
         </div>
 
-        <div class="checkbox mb-3">
-            <a href="register.html">Pas encore de compte ? Enregistrez vous ici.</a>
+        <div class="form-group">
+          <label for="inputConfirmPassword" class="sr-only">Confirmer mot de passe</label>
+          <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirmer mot de passe" v-model="confirm_password" required>
         </div>
 
         <div class="alert alert-dismissible alert-danger" v-if="check_email !== null">
@@ -40,9 +41,17 @@
             <strong>Erreur !</strong> {{check_password}}
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block" v-on:click="confirmLogin">Se connecter</button>
+        <div class="checkbox mb-3">
+            <a href="login.html">Vous avez déjà un compte ? Connectez vous ici.</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" v-on:click="confirmRegister">S'enregistrer</button>
         <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+
     </div>
-<script type="text/javascript" src="../login.js"></script>
+
+<script type="text/javascript" src="../register.js">
+
+</script>
 </body>
 </html>

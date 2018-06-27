@@ -13,26 +13,39 @@ const ch = new Vue({
         movement_form_direction: null,
         movement_form_height: null,
         movements_form: [],
-        to_update: window.location.search.substr(4)
+        to_update: window.location.search.substr(4),
+        choreography_update_name: null,
+        choreography_update_movements: null
     },
     mounted() {
         axios.get("http://localhost:3000/choregraphies", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
             this.choreographies = response.data
-            // $.each(response.data, function(index, chore) {
-            //     $.each(chore, function(key, move) {
-            //         if (key === "_id") {
-            //             axios.get("http://localhost:3000/movements/" + move, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
-            //                 console.log(response.data);
-            //             });
-            //         }
-            //     });
-            // });
         });
 
         axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
             this.movements = response.data
+        });
+
+        axios.get("http://localhost:3000/choregraphies/" + this.to_update, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+            //console.log(response.data)
+            this.choreography_update_name = response.data.name;
+            this.choreography_update_movements = response.data.movement;
+
+            this.count_movements = 0;
+
+            for (var i = 0; i < response.data.movement.length; i++) {
+                this.count_movements++;
+            }
+
+            let update_index = 0;
+
+            $.each(this.choreography_update_movements, function (index, value) {
+                update_index++;
+                value.index = update_index;
+                console.log(value);
+            });
         });
 
         $('#movementParams').hide();
