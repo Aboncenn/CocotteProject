@@ -7,9 +7,15 @@ const pu = new Vue({
         puppet_form_btMac: null,
         puppet_form_btPw: null,
         choregraphy: "",
-
+        user: null
     },
     mounted() {
+        let cookie = this.getCookie("token");
+        if (!cookie) {
+            window.location.replace("/CocotteProject/views/login.html");
+        } else {
+            this.user = cookie;
+        }
 
         axios.get("http://localhost:3000/puppets", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             console.log(response.data)
@@ -17,6 +23,22 @@ const pu = new Vue({
         })
     },
     methods: {
+        getCookie: function (cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return false;
+        },
+
         formValues: function (puppet) {
             // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
             //$('#name').val(puppet.name);
@@ -28,13 +50,17 @@ const pu = new Vue({
 
         createPuppet: function () {
 
+            var config = {
+                headers: {'Authorization': "bearer " + this.user}
+           };
+
             data = {
                 name: this.puppet_form_name,
                 btMac: this.puppet_form_btMac,
                 btPw: this.puppet_form_btPw
             };
 
-            axios.post("http://localhost:3000/puppets/create", data);
+            axios.post("http://localhost:3000/puppets/create", data, config);
 
             window.location.replace("/CocotteProject/views/puppets.html");
         },

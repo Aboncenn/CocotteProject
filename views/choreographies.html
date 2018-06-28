@@ -44,6 +44,11 @@
 
     <div class="container" id="app">
 
+        <div class="alert alert-dismissible alert-danger" id="error" v-if="error" style="margin-top: 20px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Erreur !</strong> {{error}}
+        </div>
+
         <div style="margin-bottom: 20px; margin-top: 20px;">
             <h1 style="text-align: center;">Chorégraphies
                 <a href="createChoreography.html" style="float: right;">
@@ -53,16 +58,34 @@
             <!-- &nbsp; -->
         </div>
 
+        <div class="row" v-for="choreography in choreographies">
+            <div class="col-md-1">
+                <a href="#" v-on:click="toSend(choreography._id)">
+                    <button type="button" name="button" class="btn btn-outline-primary btn-lg">
+                        <i class="far fa-hand-pointer"></i>
+                    </button>
+                </a>
+            </div>
 
-        <div class="card border-light mb-3" v-for="choreography in choreographies">
-            <div class="card-header">
-                <a href="#" v-on:click="goToUpdate(choreography)">{{choreography.name}}</a>
-                <a href="#" v-on:click="deleteChoreography(choreography)"><i class="fas fa-times" style="float: right;"></i></a>
+            <div class="col-md-11">
+                <div class="card border-light mb-3">
+                    <div class="card-header">
+                        <a href="#" v-on:click="goToUpdate(choreography)">{{choreography.name}}</a>
+                        <a href="#" v-on:click="deleteChoreography(choreography)"><i class="fas fa-trash" style="float: right; font-size:20px;"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <span v-for="move in choreography.movement" style="margin-right: 20px;"><strong>{{move.index}} - </strong>{{move.name}}</span>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <span v-for="move in choreography.movement" style="margin-right: 20px;">{{move.name}}</span>
-            </div>
+
         </div>
+
+        <a href="#" v-on:click="sendCode" style="float: right;">
+            <button type="button" name="button" class="btn btn-outline-primary btn-lg">
+                Ecrire le code
+            </button>
+        </a>
 
     </div>
 

@@ -10,12 +10,36 @@ const mo = new Vue({
         movement_form_height: null
     },
     mounted() {
+
+        let cookie = this.getCookie("token");
+        if (!cookie) {
+            window.location.replace("/CocotteProject/views/login.html");
+        } else {
+            this.user = cookie;
+        }
+
         axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             console.log(response.data)
             this.movements = response.data
         })
     },
     methods: {
+        getCookie: function (cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return false;
+        },
+        
         formValues: function (movement) {
             this.movement_id = movement._id;
             this.movement_form_name = movement.name;

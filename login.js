@@ -31,11 +31,15 @@ const lo = new Vue({
                     password: this.password
                 };
 
+                document.cookie = "login=" + data.email;
+
                 axios.post("http://localhost:3000/login", data).then((response) => {
-                    console.log(response.data)
+                    console.log(response.data);
+                    document.cookie = "token=" + response.data.token;
                 });
                 // appel api
-                //window.location.replace("/CocotteProject/views/login.html");
+
+                window.location.replace("/CocotteProject/views/puppets.html");
             } else {
                 if (!checkemail) { console.log('email ok');
                     this.check_email = "Veuillez entrer un email valide."

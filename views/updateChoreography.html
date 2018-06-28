@@ -43,7 +43,7 @@
     </nav>
 
     <div class="container" id="app" style="padding-top: 20px;">
-{{to_update}}
+
         <div class="card border-light mb-3">
             <div class="card-header">Chorégraphy</div>
             <div class="card-body">
@@ -53,62 +53,38 @@
                     <input type="text" class="form-control" name="name" placheholder="Nom" v-model="choreography_update_name">
                 </div>
 
-                {{count_movements}}
-
-                <div class="movements_list" id="movements_list" v-for="actual_movement in choreography_update_movements">
+                <div class="movements_list" id="movements_list" v-for="move in choreography_update_movements" :key="move.index">
                     <div class="" id="movement">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <label for="name">Mouvement - {{actual_movement.index}}</label>
-                                    <select class="form-control" name="mouvements_list" v-on:change="movementValuesSelect" id="select">
-                                        <option v-for="movement in movements" v-if="movement._id === actual_movement._id" v-bind:value="JSON.stringify(movement)" selected="selected">{{actual_movement.name}}</option>
-                                        <option value="" v-if="movement._id === actual_movement._id">-- mouvement --</option>
-                                        <option value="" v-else  selected="selected">-- mouvement --</option>
+                                    <label for="name">Mouvement - {{move.index}}</label>
+                                    <select class="form-control" name="mouvements_list" v-on:change="movementValuesUpdateModif" id="select">
+                                        <option value="" v-if="move.name === null" selected="selected">-- mouvement --</option>
+                                        <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}}</option>
+                                        <option v-for="movement in movements" v-show="movement.name != move.name" v-bind:value="JSON.stringify(movement)">{{movement.name}}</option>
+                                        <!-- <option v-for="movement in movements" v-if="movement.name === move.name" v-bind:value="JSON.stringify(movement)" style="display:none;">{{movement.name}}</option> -->
                                     </select>
                                 </div>
 
-                                <div class="col-md-1" style="padding-top: 35px; padding-left: 35px;">
-                                    <a href="#" v-on:click="showParams()"><i class="fas fa-arrow-circle-down setUp" style="font-size: 30px;"></i></a>
+                                <div class="col-md-1" style="padding-top: 27px; padding-left: 10px;">
+                                    <a href="#" v-on:click="deleteValueUpdate(move)">
+                                        <button type="button" class="btn btn-outline-primary btn-lg" name="button">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="movementParams" id="movementParams" style="display: none;">
-                            <div class="form-group">
-                                <label for="name">Nom</label>
-                                <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="movements_form[1]">
-                            </div>
-                            <div class="form-group">
-                                <label for="steps"></label>
-                                <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot" v-model="movement_form_steps">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="time"></label>
-                                <input type="number" class="form-control" name="time" placeholder="Vitesse du robot" v-model="movement_form_time">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="direction"></label>
-                                <input type="number" class="form-control" name="direction" placeholder="Direction du robot" v-model="movement_form_direction">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="height"></label>
-                                <input type="number" class="form-control" name="height" placeholder="hauteur du mouvement" v-model="movement_form_height">
                             </div>
                         </div>
 
                     </div>
-
                 </div>
 
-                <a href="#" v-on:click="createChoreography();" style="float: left; margin-top: 20px;">
-                    <button type="button" class="btn btn-info btn-lg" name="button">Créer Chorégraphie</button>
+                <a href="#" v-on:click="updateChoreography();" style="float: left; margin-top: 20px;">
+                    <button type="button" class="btn btn-info btn-lg" name="button">Mettre à jour</button>
                 </a>
 
-                <a href="#" v-on:click="addMovement();" style="float: right; margin-top: 20px;">
+                <a href="#" v-on:click="movementValuesUpdate" style="float: right; margin-top: 20px;">
                     <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
                 </a>
 
