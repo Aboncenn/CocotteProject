@@ -43,6 +43,10 @@
     </nav>
 
     <div class="container" id="app" style="padding-top: 20px;">
+        <div class="alert alert-dismissible alert-danger" id="error" v-if="error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Erreur !</strong> {{error}}
+        </div>
 
         <div class="card border-light mb-3">
             <div class="card-header">Chorégraphy</div>
@@ -60,9 +64,10 @@
                                 <div class="col-md-11">
                                     <label for="name">Mouvement - {{move.index}}</label>
                                     <select class="form-control" name="mouvements_list" v-on:change="movementValuesUpdateModif" id="select">
-                                        <option value="" v-if="move.name === null" selected="selected">-- mouvement --</option>
-                                        <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}}</option>
-                                        <option v-for="movement in movements" v-show="movement.name != move.name" v-bind:value="JSON.stringify(movement)">{{movement.name}}</option>
+                                        <option value="" v-if="move.name === null" selected="selected">Choisissez : mouvement - (pas, durée, direction, hauteur)</option>
+                                        <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option>
+                                        <option v-for="movement in movements" v-show="movement._id !== move._id" v-bind:value="JSON.stringify(movement)">{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option>
+                                        <!-- <option v-for="movement in movements" v-bind:value="JSON.stringify(movement)">{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option> -->
                                         <!-- <option v-for="movement in movements" v-if="movement.name === move.name" v-bind:value="JSON.stringify(movement)" style="display:none;">{{movement.name}}</option> -->
                                     </select>
                                 </div>

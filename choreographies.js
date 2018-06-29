@@ -3,6 +3,7 @@ const ch = new Vue({
     data: {
         movements: [],
         choreographies: [],
+        movement_names: [],
         choreography_id: null,
         choreography_form_name: null,
         // choreography_form_time: null,
@@ -47,7 +48,7 @@ const ch = new Vue({
 
         axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
-            this.movements = response.data
+            this.movements = response.data;
         });
 
         axios.get("http://localhost:3000/choregraphies/" + this.to_update, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
@@ -171,6 +172,10 @@ const ch = new Vue({
                 }
             });
 
+            if (this.choreography_form_name === null) {
+                error = "Veuillez entrer un nom";
+            }
+
             if (error) {
                 this.error = error;
             }
@@ -205,28 +210,44 @@ const ch = new Vue({
         },
 
         updateChoreography: function () {
-            let update_array = [];
+            this.error = null;
+            let error = null;
 
-            $.each(this.choreography_update_movements, function(index, value) {
-                $.each(value, function(key, val) {
-                    if (key === "_id" && val !== null) {
-                        update_array.push(val);
-                    }
-                });
+            $.each(this.choreography_update_movements, function (index, value) { console.log(value);
+                if (value._id === null) { console.log('ok');
+                    error = "Certains mouvements n'ont pas été sélectionnés, Veuillez les supprimer ou les sélectionner";
+                }
             });
 
-            //console.log(JSON.stringify(update_array));
+            if (error) {
+                this.error = error;
+            }
 
-            data = {
-                name: this.choreography_update_name,
-                movement: update_array
-            };
+            if (!this.error) {
+                let update_array = [];
 
-            //console.log(data);
+                $.each(this.choreography_update_movements, function(index, value) {
+                    $.each(value, function(key, val) {
+                        if (key === "_id" && val !== null) {
+                            update_array.push(val);
+                        }
+                    });
+                });
 
-            axios.put("http://localhost:3000/choregraphies/" + this.to_update + "/update", data);
+                //console.log(JSON.stringify(update_array));
 
-            window.location.replace("/CocotteProject/views/choreographies.html");
+                data = {
+                    name: this.choreography_update_name,
+                    movement: update_array
+                };
+
+                //console.log(data);
+
+                axios.put("http://localhost:3000/choregraphies/" + this.to_update + "/update", data);
+
+                window.location.replace("/CocotteProject/views/choreographies.html");
+            }
+
         },
 
         deleteChoreography: function (choreography) {

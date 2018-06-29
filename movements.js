@@ -2,12 +2,14 @@ const mo = new Vue({
     el: '#app',
     data: {
         movements: [],
+        movements_name: [],
         movement_id: null,
-        movement_form_name: null,
+        movement_form_name: "",
         movement_form_time: null,
         movement_form_steps: null,
         movement_form_direction: null,
-        movement_form_height: null
+        movement_form_height: null,
+        error: null
     },
     mounted() {
 
@@ -19,9 +21,18 @@ const mo = new Vue({
         }
 
         axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
-            console.log(response.data)
             this.movements = response.data
-        })
+            let names = [];
+
+            $.each(this.movements, function (index, value) {
+                if($.inArray(value.name, names) === -1)
+                    names.push(value.name);
+            });
+
+            this.movements_name = names;
+        });
+
+        $('#updateForm').hide();
     },
     methods: {
         getCookie: function (cname) {
@@ -39,8 +50,10 @@ const mo = new Vue({
             }
             return false;
         },
-        
+
         formValues: function (movement) {
+            $('#updateForm').slideDown();
+
             this.movement_id = movement._id;
             this.movement_form_name = movement.name;
             this.movement_form_steps = movement.steps;
@@ -52,40 +65,117 @@ const mo = new Vue({
         },
 
         createMovement: function () {
+            this.error = null;
 
-            data = {
-                name: this.movement_form_name,
-                steps: this.movement_form_steps,
-                time: this.movement_form_time,
-                direction: this.movement_form_direction,
-                height: this.movement_form_height
-            };
+            if (this.movement_form_height !== null) {
+                this.movement_form_height = (this.movement_form_height === "") ? null : this.movement_form_height;
+                if (this.movement_form_height > 25 || this.movement_form_height < 5) {
+                    this.error = "La hauteur doit être comprise entre 5 et 25";
+                    console.log(this.movement_form_height);
+                }
+            }
 
-            axios.post("http://localhost:3000/movements/create", data);
+            if (this.movement_form_direction !== null) {
+                this.movement_form_direction = (this.movement_form_direction === "") ? null : this.movement_form_direction;
+                if (this.movement_form_direction > 1 || this.movement_form_direction < -1 || this.movement_form_direction == 0) {
+                    this.error = "La direction ne peut être égale qu'à -1 ou 1";
+                }
+            }
 
-            window.location.replace("/CocotteProject/views/moves.html");
+            if (this.movement_form_time !== null) {
+                this.movement_form_time = (this.movement_form_time === "") ? null : this.movement_form_time;
+                if (this.movement_form_time > 2000 || this.movement_form_time < 600) { console.log('ok');
+                    this.error = "La vitesse doit être comprise entre 600 et 2000";
+                }
+            }
+
+            if (this.movement_form_steps !== null) {
+                this.movement_form_steps = (this.movement_form_steps === "") ? null : this.movement_form_steps;
+                if (this.movement_form_steps > 10 || this.movement_form_steps < 1) {
+                    this.error = "Le nombre de pas doit être compris entre 1 et 10";
+                }
+            }
+
+            if (this.movement_form_name === "") {
+                this.error = "Veuillez choisir un nom";
+            }
+
+            if (!this.error) {
+                data = {
+                    name: this.movement_form_name,
+                    steps: this.movement_form_steps,
+                    time: this.movement_form_time,
+                    direction: this.movement_form_direction,
+                    height: this.movement_form_height
+                };
+
+                axios.post("http://localhost:3000/movements/create", data);
+
+                window.location.replace("/CocotteProject/views/moves.html");
+            }
         },
 
         updateMovement: function () {
+            this.error = null;
 
+            if (this.movement_form_height !== null) {
+                this.movement_form_height = (this.movement_form_height === "") ? null : this.movement_form_height;
+                if (this.movement_form_height > 25 || this.movement_form_height < 5) {
+                    this.error = "La hauteur doit être comprise entre 5 et 25";
+                    console.log(this.movement_form_height);
+                }
+            }
 
-            data = {
-                name: this.movement_form_name,
-                steps: this.movement_form_steps,
-                time: this.movement_form_time,
-                direction: this.movement_form_direction,
-                height: this.movement_form_height
-            };
+            if (this.movement_form_direction !== null) {
+                this.movement_form_direction = (this.movement_form_direction === "") ? null : this.movement_form_direction;
+                if (this.movement_form_direction > 1 || this.movement_form_direction < -1 || this.movement_form_direction == 0) {
+                    this.error = "La direction ne peut être égale qu'à -1 ou 1";
+                }
+            }
 
-            axios.put("http://localhost:3000/movements/" + this.movement_id + "/update", data);
+            if (this.movement_form_time !== null) {
+                this.movement_form_time = (this.movement_form_time === "") ? null : this.movement_form_time;
+                if (this.movement_form_time > 2000 || this.movement_form_time < 600) { console.log('ok');
+                    this.error = "La vitesse doit être comprise entre 600 et 2000";
+                }
+            }
 
-            //$(location).attr('href', '/CocotteProject/views/puppets.html?update=ok');
-            location.reload();
+            if (this.movement_form_steps !== null) {
+                this.movement_form_steps = (this.movement_form_steps === "") ? null : this.movement_form_steps;
+                if (this.movement_form_steps > 10 || this.movement_form_steps < 1) {
+                    this.error = "Le nombre de pas doit être compris entre 1 et 10";
+                }
+            }
+
+            if (this.movement_form_name === "") {
+                this.error = "Veuillez choisir un nom";
+            }
+
+            if (!this.error) {
+                $('#updateForm').slideDown();
+
+                data = {
+                    name: this.movement_form_name,
+                    steps: this.movement_form_steps,
+                    time: this.movement_form_time,
+                    direction: this.movement_form_direction,
+                    height: this.movement_form_height
+                };
+
+                axios.put("http://localhost:3000/movements/" + this.movement_id + "/update", data);
+
+                //$(location).attr('href', '/CocotteProject/views/puppets.html?update=ok');
+                location.reload();
+            }
         },
 
         deleteMovement: function (movement) {
             axios.delete("http://localhost:3000/movements/" + movement._id + "/delete");
             window.location.replace("/CocotteProject/views/moves.html");
+        },
+
+        assignName: function () {
+
         }
     }
 });

@@ -44,29 +44,37 @@
 
     <div class="container" id="app" style="margin-top: 20px;">
 
+        <div class="alert alert-dismissible alert-danger" id="error" v-if="error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Erreur !</strong> {{error}}
+        </div>
+
         <div class="form-group">
             <label for="name">Nom</label>
-            <input type="text" class="form-control" id="name" placeholder="Nom de la marrionnette" v-model="movement_form_name">
+            <select class="form-control" name="name" v-model="movement_form_name">
+                <option disabled value="">Choisissez</option>
+                <option v-for="name in movements_name">{{name}}</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="steps"></label>
-            <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot" v-model="movement_form_steps">
+            <label for="steps">Nombre de pas</label>
+            <input type="number" class="form-control" name="steps" placeholder="Nombre de pas du robot : entre 1 et 10" v-model="movement_form_steps" min="1" max="10">
         </div>
 
         <div class="form-group">
-            <label for="time"></label>
-            <input type="number" class="form-control" name="time" placeholder="Vitesse du robot" v-model="movement_form_time">
+            <label for="time">Vitesse</label>
+            <input type="number" class="form-control" name="time" placeholder="Vitesse du robot : entre 600 et 2000" v-model="movement_form_time" min="600" max="2000">
         </div>
 
         <div class="form-group">
-            <label for="direction"></label>
-            <input type="number" class="form-control" name="direction" placeholder="Direction du robot" v-model="movement_form_direction">
+            <label for="direction">Direction</label>
+            <input type="number" class="form-control" name="direction" placeholder="Direction du robot : soit 1 soit -1" v-model="movement_form_direction" min="-1" max="1">
         </div>
 
         <div class="form-group">
-            <label for="height"></label>
-            <input type="number" class="form-control" name="height" placeholder="hauteur du mouvement" v-model="movement_form_height">
+            <label for="height">Hauteur</label>
+            <input type="number" class="form-control" name="height" placeholder="Hauteur du mouvement : entre 5 et 25" v-model="movement_form_height" min="5" max="25">
         </div>
 
         <button type="submit" class="btn btn-primary" name="create" v-on:click="createMovement()">create</button>

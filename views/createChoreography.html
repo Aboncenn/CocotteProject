@@ -65,9 +65,10 @@
                                 <div class="col-md-11">
                                     <label for="name">Mouvement - {{move.index}}</label>
                                     <select class="form-control" name="mouvements_list" v-on:change="movementValuesCreateModif" id="select">
-                                        <option value="" selected="selected">-- mouvement --</option>
-                                        <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}}</option>
-                                        <option v-for="movement in movements" v-show="movement.name != move.name" v-bind:value="JSON.stringify(movement)">{{movement.name}}</option>
+                                        <option value="" disabled selected>Choisissez : mouvement - (pas, durée, direction, hauteur)</option>
+                                        <!-- <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option> -->
+                                        <option v-for="movement in movements" v-bind:value="JSON.stringify(movement)">{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option>
+                                        <!-- <option v-for="movement in movements" v-if="!movement.index" v-bind:value="JSON.stringify(movement)">{{movement.name}} - (unknow, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option> -->
                                     </select>
                                 </div>
 
