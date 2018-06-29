@@ -4,7 +4,8 @@ const lo = new Vue({
         email: null,
         password: null,
         check_email: null,
-        check_password: null
+        check_password: null,
+        error: null
     },
     methods: {
 
@@ -36,10 +37,14 @@ const lo = new Vue({
                 axios.post("http://localhost:3000/login", data).then((response) => {
                     console.log(response.data);
                     document.cookie = "token=" + response.data.token;
+                    window.location.replace("/CocotteProject/views/puppets.html");
+                }).catch((error) => {
+                    if (error) { console.log('erreur');
+                        this.error = "Vos identifiants sont incorrectes";
+                    }
                 });
-                // appel api
 
-                window.location.replace("/CocotteProject/views/puppets.html");
+
             } else {
                 if (!checkemail) { console.log('email ok');
                     this.check_email = "Veuillez entrer un email valide."
