@@ -337,10 +337,8 @@ const ch = new Vue({
                     let now = Date.now();
 
                     this.download("choregraphies" + now + ".ino", response.data);
-
+                    window.location.replace("/CocotteProject/views/choreographies.html");
                 });
-
-                window.location.replace("/CocotteProject/views/choreographies.html");
             }
         },
 

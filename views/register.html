@@ -8,11 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </head>
 <body class="text-center">
 
-    <div class="container" style="padding: 140px 400px 140px 400px;" id="app">
+    <div class="container" style="margin: 150px auto; min-width: 400px; max-width: 400px;" id="app">
 
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">S'enregistrer</h1>
@@ -45,7 +48,7 @@
             <a href="login.html">Vous avez déjà un compte ? Connectez vous ici.</a>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block" v-on:click="confirmRegister">S'enregistrer</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" v-on:click="confirmRegister" style="margin-bottom: 20px;">S'enregistrer</button>
         <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 
     </div>
