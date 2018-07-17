@@ -55,7 +55,7 @@
         <div style="margin-bottom: 20px; margin-top: 20px;">
             <h1 style="text-align: center;">Chorégraphies
                 <a href="createChoreography.html" style="float: right;">
-                    <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-warning btn-lg" name="button"><i class="fas fa-plus"></i></button>
                 </a>
             </h1>
             <!-- &nbsp; -->
@@ -64,7 +64,7 @@
         <div class="row" v-for="choreography in choreographies">
             <div class="col-md-1">
                 <a href="#" v-on:click="toSend(choreography._id)">
-                    <button type="button" name="button" class="btn btn-outline-primary btn-lg">
+                    <button type="button" name="button" class="btn btn-outline-warning btn-lg">
                         <i class="far fa-hand-pointer"></i>
                     </button>
                 </a>
@@ -85,7 +85,7 @@
         </div>
 
         <a href="#" v-on:click="sendCode" style="float: right; margin-bottom: 20px;">
-            <button type="button" name="button" class="btn btn-outline-primary btn-lg">
+            <button type="button" name="button" class="btn btn-outline-warning btn-lg">
                 Télécharger le code
             </button>
         </a>

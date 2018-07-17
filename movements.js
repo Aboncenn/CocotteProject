@@ -20,7 +20,7 @@ const mo = new Vue({
             this.user = cookie;
         }
 
-        axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             this.movements = response.data
             let names = [];
 
@@ -109,7 +109,7 @@ const mo = new Vue({
                     height: this.movement_form_height
                 };
 
-                axios.post("http://localhost:3000/movements/create", data);
+                axios.post("https://chicken-api.herokuapp.com/movements/create", data);
 
                 window.location.replace("/CocotteProject/views/moves.html");
             }
@@ -162,7 +162,7 @@ const mo = new Vue({
                     height: this.movement_form_height
                 };
 
-                axios.put("http://localhost:3000/movements/" + this.movement_id + "/update", data);
+                axios.put("https://chicken-api.herokuapp.com/movements/" + this.movement_id + "/update", data);
 
                 //$(location).attr('href', '/CocotteProject/views/puppets.html?update=ok');
                 location.reload();
@@ -170,7 +170,7 @@ const mo = new Vue({
         },
 
         deleteMovement: function (movement) {
-            axios.delete("http://localhost:3000/movements/" + movement._id + "/delete");
+            axios.delete("https://chicken-api.herokuapp.com/movements/" + movement._id + "/delete");
             window.location.replace("/CocotteProject/views/moves.html");
         },
 

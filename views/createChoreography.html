@@ -64,14 +64,13 @@
                 <div class="movements_list" id="movements_list" v-for="move in movements_form" :key="move.index">
                     <div class="" id="movement">
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row">warning
                                 <div class="col-md-11">
                                     <label for="name">Mouvement - {{move.index}}</label>
                                     <select class="form-control" name="mouvements_list" v-on:change="movementValuesCreateModif" id="select">
                                         <option value="" disabled selected>Choisissez : mouvement - (pas, durée, direction, hauteur)</option>
                                         <!-- <option v-for="movement in movements" v-if="movement._id === move._id" v-bind:value="JSON.stringify(movement)" selected>{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option> -->
                                         <option v-for="movement in movements" v-bind:value="JSON.stringify(movement)">{{movement.name}} - ({{movement.steps}}, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option>
-                                        <!-- <option v-for="movement in movements" v-if="!movement.index" v-bind:value="JSON.stringify(movement)">{{movement.name}} - (unknow, {{movement.time}}, {{movement.direction}}, {{movement.height}})</option> -->
                                     </select>
                                 </div>
 
@@ -81,7 +80,7 @@
 
                                 <div class="col-md-1" style="padding-top: 27px; padding-left: 10px;">
                                     <a href="#" v-on:click="deleteValueCreate(move)">
-                                        <button type="button" class="btn btn-outline-primary btn-lg" name="button">
+                                        <button type="button" class="btn btn-outline-warning btn-lg" name="button">
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </a>
@@ -124,7 +123,7 @@
                 </a>
 
                 <a href="#" v-on:click="movementValuesCreate" style="float: right; margin-top: 20px;" style="margin-bottom: 20px;">
-                    <button type="button" class="btn btn-outline-primary btn-lg" name="button"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-warning btn-lg" name="button"><i class="fas fa-plus"></i></button>
                 </a>
 
             </div>

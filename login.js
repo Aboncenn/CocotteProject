@@ -34,7 +34,7 @@ const lo = new Vue({
 
                 document.cookie = "login=" + data.email;
 
-                axios.post("http://localhost:3000/login", data).then((response) => {
+                axios.post("https://chicken-api.herokuapp.com/login", data).then((response) => {
                     console.log(response.data);
                     document.cookie = "token=" + response.data.token;
                     window.location.replace("/CocotteProject/views/puppets.html");

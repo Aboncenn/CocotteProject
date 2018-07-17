@@ -5,6 +5,7 @@
     <title>Chicken</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- CDN Vue.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script> -->
@@ -80,7 +81,7 @@
             <input type="number" class="form-control" name="height" placeholder="Hauteur du mouvement : entre 5 et 25" v-model="movement_form_height" min="5" max="25">
         </div>
 
-        <button type="submit" class="btn btn-primary" name="create" v-on:click="createMovement()" style="margin-bottom: 20px;">create</button>
+        <button type="submit" class="btn btn-warning" name="create" v-on:click="createMovement()" style="margin-bottom: 20px;">create</button>
 
     </div>
 

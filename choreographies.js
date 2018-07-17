@@ -10,11 +10,11 @@ const ch = new Vue({
         count_movements: 0,
         count_movements_update: 0,
         count_movements_create: 0,
-        // movement_form_name: null,
-        // movement_form_time: null,
-        // movement_form_steps: null,
-        // movement_form_direction: null,
-        // movement_form_height: null,
+        movement_form_name: null,
+        movement_form_time: null,
+        movement_form_steps: null,
+        movement_form_direction: null,
+        movement_form_height: null,
         movements_form: [],
         to_update: window.location.search.substr(4),
         choreography_update_name: null,
@@ -31,7 +31,7 @@ const ch = new Vue({
             this.user = cookie;
         }
 
-        axios.get("http://localhost:3000/choregraphies", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/choregraphies", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
             let list_index = 0;
 
@@ -46,12 +46,23 @@ const ch = new Vue({
             });
         });
 
-        axios.get("http://localhost:3000/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
             this.movements = response.data;
+
+            let checkNames = [];
+            let moves2 = this.movements;
+
+            this.movements.sort( function (a, b) {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+            });
+
+            console.log(this.movements);
         });
 
-        axios.get("http://localhost:3000/choregraphies/" + this.to_update, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/choregraphies/" + this.to_update, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
             //console.log(response.data)
             this.choreography_update_name = response.data.name;
             this.choreography_update_movements = response.data.movement;
@@ -203,7 +214,7 @@ const ch = new Vue({
                     movement: create_array
                 };
 
-                axios.post("http://localhost:3000/choregraphies/create", data, config);
+                axios.post("https://chicken-api.herokuapp.com/choregraphies/create", data, config);
 
                 window.location.replace("/CocotteProject/views/choreographies.html");
             }
@@ -243,7 +254,7 @@ const ch = new Vue({
 
                 //console.log(data);
 
-                axios.put("http://localhost:3000/choregraphies/" + this.to_update + "/update", data);
+                axios.put("https://chicken-api.herokuapp.com/choregraphies/" + this.to_update + "/update", data);
 
                 window.location.replace("/CocotteProject/views/choreographies.html");
             }
@@ -253,7 +264,7 @@ const ch = new Vue({
         deleteChoreography: function (choreography) {
             let valid = confirm("Êtes vous sûr de vouloir supprimer cette chorégraphie ?");
             if (valid) {
-                axios.delete("http://localhost:3000/choregraphies/" + choreography._id + "/delete");
+                axios.delete("https://chicken-api.herokuapp.com/choregraphies/" + choreography._id + "/delete");
                 window.location.replace("/CocotteProject/views/choreographies.html");
             }
         },
@@ -333,7 +344,7 @@ const ch = new Vue({
                 }
 
                 //console.log(this.script);
-                axios.post("http://localhost:3000/choregraphies/generate", data).then((response) => {
+                axios.post("https://chicken-api.herokuapp.com/choregraphies/generate", data).then((response) => {
                     let now = Date.now();
 
                     this.download("choregraphies" + now + ".ino", response.data);
@@ -354,6 +365,5 @@ const ch = new Vue({
 
             document.body.removeChild(element);
         }
-
     }
 });

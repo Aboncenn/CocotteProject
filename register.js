@@ -33,9 +33,10 @@ const re = new Vue({
                     password: this.password
                 };
 
-                axios.post("http://localhost:3000/register", data);
+                axios.post("https://chicken-api.herokuapp.com/register", data).then((response) => {
+                    window.location.replace("/CocotteProject/views/login.html");
+                });
                 // appel api
-                window.location.replace("/CocotteProject/views/login.html");
             } else {
                 if (!checkemail) { console.log('email ok');
                     this.check_email = "Veuillez entrer un email valide."
