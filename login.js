@@ -38,6 +38,8 @@ const lo = new Vue({
                     console.log(response.data);
                     document.cookie = "token=" + response.data.token;
                     window.location.replace("/CocotteProject/views/puppets.html");
+                    console.log(response.data.token);
+                    alert();
                 }).catch((error) => {
                     if (error) { console.log('erreur');
                         this.error = "Vos identifiants sont incorrectes";

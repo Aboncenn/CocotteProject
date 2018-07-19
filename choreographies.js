@@ -10,11 +10,11 @@ const ch = new Vue({
         count_movements: 0,
         count_movements_update: 0,
         count_movements_create: 0,
-        movement_form_name: null,
-        movement_form_time: null,
-        movement_form_steps: null,
-        movement_form_direction: null,
-        movement_form_height: null,
+        // movement_form_name: null,
+        // movement_form_time: null,
+        // movement_form_steps: null,
+        // movement_form_direction: null,
+        // movement_form_height: null,
         movements_form: [],
         to_update: window.location.search.substr(4),
         choreography_update_name: null,
@@ -25,13 +25,19 @@ const ch = new Vue({
     },
     mounted() {
         let cookie = this.getCookie("token");
+        console.log(cookie);
         if (!cookie) {
             window.location.replace("/CocotteProject/views/login.html");
         } else {
             this.user = cookie;
         }
 
-        axios.get("https://chicken-api.herokuapp.com/choregraphies", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        var config = {
+            headers: {'Authorization': "Bearer " + this.user, "Access-Control-Allow-Origin" : "*"}
+        };
+        
+
+        axios.get("https://chicken-api.herokuapp.com/choregraphies", config).then((response) => {
             //console.log(response.data)
             let list_index = 0;
 
@@ -46,7 +52,7 @@ const ch = new Vue({
             });
         });
 
-        axios.get("https://chicken-api.herokuapp.com/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/movements", config).then((response) => {
             //console.log(response.data)
             this.movements = response.data;
 
@@ -62,7 +68,7 @@ const ch = new Vue({
             console.log(this.movements);
         });
 
-        axios.get("https://chicken-api.herokuapp.com/choregraphies/" + this.to_update, { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        axios.get("https://chicken-api.herokuapp.com/choregraphies/" + this.to_update, config).then((response) => {
             //console.log(response.data)
             this.choreography_update_name = response.data.name;
             this.choreography_update_movements = response.data.movement;
@@ -214,9 +220,9 @@ const ch = new Vue({
                     movement: create_array
                 };
 
-                axios.post("https://chicken-api.herokuapp.com/choregraphies/create", data, config);
-
-                window.location.replace("/CocotteProject/views/choreographies.html");
+                axios.post("https://chicken-api.herokuapp.com/choregraphies/create", data, config).then((response) => {
+                    window.location.replace("/CocotteProject/views/choreographies.html");
+                });
             }
         },
 

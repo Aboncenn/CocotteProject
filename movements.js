@@ -14,13 +14,18 @@ const mo = new Vue({
     mounted() {
 
         let cookie = this.getCookie("token");
+        console.log(cookie);
         if (!cookie) {
             window.location.replace("/CocotteProject/views/login.html");
         } else {
             this.user = cookie;
         }
 
-        axios.get("https://chicken-api.herokuapp.com/movements", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        var config = {
+            headers: {'Authorization': "Bearer " + this.user, "Access-Control-Allow-Origin" : "*"}
+        };
+
+        axios.get("https://chicken-api.herokuapp.com/movements", config).then((response) => {
             this.movements = response.data
             let names = [];
 
@@ -109,9 +114,9 @@ const mo = new Vue({
                     height: this.movement_form_height
                 };
 
-                axios.post("https://chicken-api.herokuapp.com/movements/create", data);
-
-                window.location.replace("/CocotteProject/views/moves.html");
+                axios.post("https://chicken-api.herokuapp.com/movements/create", data).then((response) => {
+                    window.location.replace("/CocotteProject/views/moves.html");
+                });
             }
         },
 
@@ -162,16 +167,19 @@ const mo = new Vue({
                     height: this.movement_form_height
                 };
 
-                axios.put("https://chicken-api.herokuapp.com/movements/" + this.movement_id + "/update", data);
+                axios.put("https://chicken-api.herokuapp.com/movements/" + this.movement_id + "/update", data).then((response) => {
+                    location.reload();
+                });
 
                 //$(location).attr('href', '/CocotteProject/views/puppets.html?update=ok');
-                location.reload();
+
             }
         },
 
         deleteMovement: function (movement) {
-            axios.delete("https://chicken-api.herokuapp.com/movements/" + movement._id + "/delete");
-            window.location.replace("/CocotteProject/views/moves.html");
+            axios.delete("https://chicken-api.herokuapp.com/movements/" + movement._id + "/delete").then((response) => {
+                window.location.replace("/CocotteProject/views/moves.html");
+            });
         },
 
         assignName: function () {

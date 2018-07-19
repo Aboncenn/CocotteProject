@@ -11,13 +11,18 @@ const pu = new Vue({
     },
     mounted() {
         let cookie = this.getCookie("token");
+        console.log(cookie);
         if (!cookie) {
             window.location.replace("/CocotteProject/views/login.html");
         } else {
             this.user = cookie;
         }
 
-        axios.get("https://chicken-api.herokuapp.com/puppets", { headers : { "Access-Control-Allow-Origin" : "*" } }).then((response) => {
+        var config = {
+            headers: {'Authorization': "Bearer " + this.user, "Access-Control-Allow-Origin" : "*"}
+        };
+
+        axios.get("https://chicken-api.herokuapp.com/puppets", config).then((response) => {
             console.log(response.data)
             this.puppets = response.data
         })
@@ -60,9 +65,9 @@ const pu = new Vue({
                 btPw: this.puppet_form_btPw
             };
 
-            axios.post("https://chicken-api.herokuapp.com/puppets/create", data, config);
-
-            window.location.replace("/CocotteProject/views/puppets.html");
+            axios.post("https://chicken-api.herokuapp.com/puppets/create", data, config).then((response) => {
+                window.location.replace("/CocotteProject/views/puppets.html");
+            });
         },
 
         updatePuppet: function () {
@@ -72,15 +77,18 @@ const pu = new Vue({
                 btPw: this.puppet_form_btPw
             };
 
-            axios.put("https://chicken-api.herokuapp.com/puppets/" + this.puppet_id + "/update", data);
+            axios.put("https://chicken-api.herokuapp.com/puppets/" + this.puppet_id + "/update", data).then((response) => {
+                location.reload();
+            });
 
             //$(location).attr('href', '/CocotteProject/views/puppets.html?update=ok');
-            location.reload();
+
         },
 
         deletePuppet: function (puppet) {
-            axios.delete("https://chicken-api.herokuapp.com/puppets/" + puppet._id + "/delete");
-            window.location.replace("/CocotteProject/views/puppets.html");
+            axios.delete("https://chicken-api.herokuapp.com/puppets/" + puppet._id + "/delete").then((response) => {
+                window.location.replace("/CocotteProject/views/puppets.html");
+            });
         }
     }
 });
